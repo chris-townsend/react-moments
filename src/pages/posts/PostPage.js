@@ -40,6 +40,6 @@ function PostPage() {
       </Col>
     </Row>
   );
-} 
+}
 
 export default PostPage;
