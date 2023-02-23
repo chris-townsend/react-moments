@@ -4,14 +4,16 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import NoResults from "../../assets/images/no-results.png";
+
+import Post from "./Post";
+import Asset from "../../components/Asset";
 
 import appStyles from "../../App.module.css";
 import styles from "../../styles/PostsPage.module.css";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-import Post from "./Post";
-import Asset from "../../components/Asset";
+
+import NoResults from "../../assets/images/no-results.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 
@@ -19,6 +21,7 @@ function PostsPage({ message, filter = "" }) {
   const [posts, setPosts] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
+
   const [query, setQuery] = useState("");
 
   useEffect(() => {
@@ -31,10 +34,12 @@ function PostsPage({ message, filter = "" }) {
         console.log(err);
       }
     };
+
     setHasLoaded(false);
     const timer = setTimeout(() => {
       fetchPosts();
     }, 1000);
+
     return () => {
       clearTimeout(timer);
     };
@@ -44,7 +49,7 @@ function PostsPage({ message, filter = "" }) {
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <p>Popular profiles mobile</p>
-        <i className={`fas-fa-search $ {styles.SearchIcon}`} />
+        <i className={`fas fa-search ${styles.SearchIcon}`} />
         <Form
           className={styles.SearchBar}
           onSubmit={(event) => event.preventDefault()}
@@ -54,7 +59,7 @@ function PostsPage({ message, filter = "" }) {
             onChange={(event) => setQuery(event.target.value)}
             type="text"
             className="mr-sm-2"
-            placeholder="Search Posts"
+            placeholder="Search posts"
           />
         </Form>
 
